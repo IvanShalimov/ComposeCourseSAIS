@@ -8,7 +8,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HomeScreen("Ivan")
+            HomeScreenList(listOf("one", "two", "three"))
         }
     }
 }
