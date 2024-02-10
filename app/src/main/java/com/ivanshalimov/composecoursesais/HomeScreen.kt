@@ -1,6 +1,7 @@
 package com.ivanshalimov.composecoursesais
 
 
+import android.util.Log
 import android.widget.CheckBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -205,11 +206,34 @@ fun HomeScreen6Preview() {
 
 @Composable
 fun HomeScreenInput(counter: State<Int>, onCounterClick:()-> Unit) {
+    Log.d("Ivan", "HomeScreen")
     val counterValue = counter.value
+    Column {
+        ClickCounter(counter = counterValue, onCounterClick = onCounterClick)
+        InfoText(text = if(counterValue < 3) "More" else "Enough")
+    }
+
+}
+
+@Composable
+fun ClickCounter(
+    counter: Int,
+    onCounterClick:()-> Unit
+) {
+    Log.d("Ivan", "ClickCounter: $counter")
     Text(
-        text = "Clicks: $counterValue",
-        modifier = Modifier.clickable { onCounterClick() }
+        text = "Clicks: $counter",
+        modifier = Modifier.clickable {
+            Log.d("Ivan", "--- click ---")
+            onCounterClick()
+        }
     )
+}
+
+@Composable
+fun InfoText(text: String) {
+    Log.d("Ivan", "InfoText: $text")
+    Text(text = text, fontSize = 24.sp)
 }
 
 @Preview(showBackground = true)
