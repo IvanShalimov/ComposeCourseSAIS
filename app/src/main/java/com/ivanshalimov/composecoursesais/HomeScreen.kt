@@ -2,7 +2,6 @@ package com.ivanshalimov.composecoursesais
 
 
 import android.util.Log
-import android.widget.CheckBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -29,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -205,24 +205,52 @@ fun HomeScreen6Preview() {
 
 
 @Composable
-fun HomeScreenInput(counter: State<Int>, onCounterClick:()-> Unit) {
+fun HomeScreenInput(
+    counter: State<Int>,
+    onCounterClick:()-> Unit,
+    checked: State<Boolean>,
+    onCheckedChange: (Boolean) -> Unit
+    ) {
     Log.d("Ivan", "HomeScreen")
     val counterValue = counter.value
     Column {
-        ClickCounter(counter = counterValue, onCounterClick = onCounterClick)
-        InfoText(text = if(counterValue < 3) "More" else "Enough")
+        ClickCounter(
+            uppercase = checked.value,
+            counterValue = counterValue,
+            onCounterClick = onCounterClick)
+        InfoText(
+            text = if(counterValue < 3) "More" else "Enough"
+        )
+        UpperCaseCheckBox(
+            checked= checked,
+            onCheckedChange = onCheckedChange
+        )
     }
 
 }
 
 @Composable
+fun UpperCaseCheckBox(
+    checked: State<Boolean>,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    val checkedValue = checked.value
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(checked = checkedValue, onCheckedChange = onCheckedChange)
+        Text(text = "UPPERCASE")
+    }
+}
+
+@Composable
 fun ClickCounter(
-    counter: Int,
+    uppercase: Boolean,
+    counterValue: Int,
     onCounterClick:()-> Unit
 ) {
-    Log.d("Ivan", "ClickCounter: $counter")
+    Log.d("Ivan", "ClickCounter: $counterValue")
+    val evenOdd = remember(uppercase) { EvenOdd(uppercase) }
     Text(
-        text = "Clicks: $counter",
+        text = "Clicks: $counterValue ${evenOdd.check(counterValue)}",
         modifier = Modifier.clickable {
             Log.d("Ivan", "--- click ---")
             onCounterClick()
@@ -261,8 +289,11 @@ fun HomeScreenCheckBox(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenCheckBoxPreview() {
-    HomeScreenCheckBox(
+    val value = remember {
         mutableStateOf(false)
+    }
+    HomeScreenCheckBox(
+        value
     ) {}
 }
 
@@ -278,7 +309,10 @@ fun HomeScreenTextField(
 @Composable
 @Preview(showBackground = true)
 fun HomeScreenTextFieldPreview() {
-    HomeScreenTextField(
+    val value = remember {
         mutableStateOf("Text")
+    }
+    HomeScreenTextField(
+        value
     ) {}
 }
