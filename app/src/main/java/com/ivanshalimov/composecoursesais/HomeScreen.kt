@@ -1,6 +1,7 @@
 package com.ivanshalimov.composecoursesais
 
 
+import android.widget.CheckBox
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -129,7 +133,7 @@ fun HomeScreen4Preview() {
 @Composable
 fun HomeScreenList(list: List<String>) {
     if(list.isEmpty()) {
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Box(contentAlignment = Center, modifier = Modifier.fillMaxSize()) {
             Text("Empty list")
         }
     } else {
@@ -212,4 +216,45 @@ fun HomeScreenInput(counter: State<Int>, onCounterClick:()-> Unit) {
 @Composable
 fun HomeScreenInputPreview() {
     //HomeScreenInput(0) {}
+}
+
+@Composable
+fun HomeScreenCheckBox(
+    checked: State<Boolean>,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    val checkedValue = checked.value
+
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Checkbox(checked = checkedValue, onCheckedChange = onCheckedChange)
+        Text(
+            text = "some checkbox text",
+            fontSize = 18.sp,
+            modifier = Modifier.clickable { onCheckedChange(!checkedValue) })
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenCheckBoxPreview() {
+    HomeScreenCheckBox(
+        mutableStateOf(false)
+    ) {}
+}
+
+@Composable
+fun HomeScreenTextField(
+    text: State<String>,
+    onValueChang: (String) -> Unit
+) {
+    val textValue = text.value
+    OutlinedTextField(value = textValue, onValueChange = onValueChang)
+}
+
+@Composable
+@Preview(showBackground = true)
+fun HomeScreenTextFieldPreview() {
+    HomeScreenTextField(
+        mutableStateOf("Text")
+    ) {}
 }

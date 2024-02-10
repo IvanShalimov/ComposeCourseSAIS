@@ -8,10 +8,12 @@ import androidx.compose.runtime.mutableStateOf
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var counter = mutableStateOf(0)
+        //var counter = mutableStateOf(0)
+        //val checked = mutableStateOf(false)
+        val text = mutableStateOf("some text")
         setContent {
-            HomeScreenInput(counter) {
-                counter.value++
+            HomeScreenTextField(text) { newText ->
+                text.value = newText
             }
         }
     }
