@@ -27,8 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -84,7 +87,7 @@ fun HomeScreen1Preview() {
 @Composable
 fun HomeScreen2() {
     Row(
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = CenterVertically
     ) {
         Text(text = stringResource(id = R.string.title), fontSize = 32.sp)
         Spacer(modifier = Modifier
@@ -226,7 +229,6 @@ fun HomeScreenInput(
             onCheckedChange = onCheckedChange
         )
     }
-
 }
 
 @Composable
@@ -235,7 +237,7 @@ fun UpperCaseCheckBox(
     onCheckedChange: (Boolean) -> Unit
 ) {
     val checkedValue = checked.value
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = CenterVertically) {
         Checkbox(checked = checkedValue, onCheckedChange = onCheckedChange)
         Text(text = "UPPERCASE")
     }
@@ -277,7 +279,7 @@ fun HomeScreenCheckBox(
 ) {
     val checkedValue = checked.value
 
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(verticalAlignment = CenterVertically) {
         Checkbox(checked = checkedValue, onCheckedChange = onCheckedChange)
         Text(
             text = "some checkbox text",
@@ -315,4 +317,19 @@ fun HomeScreenTextFieldPreview() {
     HomeScreenTextField(
         value
     ) {}
+}
+
+
+@Composable
+fun HomeScreenCheckBox2() {
+    var checked by remember {mutableStateOf(false)}
+    Column {
+        Row(verticalAlignment = CenterVertically) {
+            Checkbox(checked = checked, onCheckedChange = { value -> checked = value })
+            Text("More details", fontSize = 18.sp)
+        }
+        if (checked) {
+            Text(text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
+        }
+    }
 }
