@@ -15,10 +15,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Center
@@ -28,9 +31,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -332,4 +338,36 @@ fun HomeScreenCheckBox2() {
             Text(text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
         }
     }
+}
+
+@Composable
+fun HomeScreenList() {
+    Log.d("Ivan","HomeScreen")
+    val list = remember {
+        List(20) { "Item ${it+1}"}.toMutableStateList()
+    }
+
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        /*TextButton(onClick = {
+            Log.d("Ivan","--append--")
+            list.add(0,"Item ${list.size+1}")
+        }) {
+            Text(text = "Append")
+        }*/
+        list.forEach { value ->
+            key(value) {
+                SomeItem(text = value)
+            }
+        }
+    }
+}
+
+@Composable
+fun SomeItem(text: String) {
+    Log.d("Ivan", "SomeItem: $text")
+    Text(
+        text = text,
+        fontSize = 20.sp,
+        modifier = Modifier.padding(16.dp)
+    )
 }
