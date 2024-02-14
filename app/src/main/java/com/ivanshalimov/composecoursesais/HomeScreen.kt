@@ -375,10 +375,29 @@ fun SomeItem(text: String) {
 fun HomeScreenClicker(
     homeViewModel: HomeViewModel = viewModel()
 ) {
-
     val counter by homeViewModel.counter.collectAsState()
+    ClickCounter(
+        count = counter,
+        onCounterClick = homeViewModel::onCounterClick
+    )
+}
+
+@Composable
+fun ClickCounter(
+    count: Int,
+    onCounterClick: () -> Unit
+) {
     Text(
-        text = "Text: $counter",
-        modifier = Modifier.clickable(onClick = homeViewModel::onCounterClick)
+        text = "Clicks: $count",
+        modifier = Modifier.clickable(onClick = onCounterClick)
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ClickCounterPreview() {
+    ClickCounter(
+        count = 5,
+        onCounterClick = {}
     )
 }
