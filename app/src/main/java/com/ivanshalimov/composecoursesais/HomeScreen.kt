@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 
 @Composable
@@ -366,5 +367,17 @@ fun SomeItem(text: String) {
             .fillMaxWidth()
             .border(width = 1.dp, color = Color.Black)
             .padding(16.dp)
+    )
+}
+
+@Composable
+fun HomeScreenClicker(
+    homeViewModel: HomeViewModel = viewModel()
+) {
+
+    val counter by homeViewModel.counter
+    Text(
+        text = "Text: $counter",
+        modifier = Modifier.clickable(onClick = homeViewModel::onCounterClick)
     )
 }
