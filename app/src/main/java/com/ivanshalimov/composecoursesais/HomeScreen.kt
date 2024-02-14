@@ -375,11 +375,18 @@ fun SomeItem(text: String) {
 fun HomeScreenClicker(
     homeViewModel: HomeViewModel = viewModel()
 ) {
-    val counter by homeViewModel.counter.collectAsState()
-    ClickCounter(
-        count = counter,
-        onCounterClick = homeViewModel::onCounterClick
-    )
+    val uiState by homeViewModel.uiState.collectAsState()
+
+    Column {
+        ClickCounter(
+            count = uiState.count,
+            onCounterClick = homeViewModel::onCounterClick
+        )
+        EnableFeature(
+            enabled = uiState.enabled,
+            onEnabledChange = homeViewModel::setEnabled
+        )
+    }
 }
 
 @Composable
@@ -391,6 +398,17 @@ fun ClickCounter(
         text = "Clicks: $count",
         modifier = Modifier.clickable(onClick = onCounterClick)
     )
+}
+
+@Composable
+fun EnableFeature(
+    enabled: Boolean,
+    onEnabledChange: (Boolean) -> Unit
+) {
+    Row(verticalAlignment = CenterVertically) {
+        Checkbox(checked = enabled, onCheckedChange = onEnabledChange)
+        Text("enable feature")
+    }
 }
 
 @Preview(showBackground = true)
