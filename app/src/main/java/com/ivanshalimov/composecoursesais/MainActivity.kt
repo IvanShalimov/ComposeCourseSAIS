@@ -11,7 +11,7 @@ class MainActivity : ComponentActivity() {
         //val checked = mutableStateOf(false)
         //val text = mutableStateOf("some text")
         setContent {
-            HomeScreenClicker()
+            HomeScreenModifierOrder()
         }
     }
 }

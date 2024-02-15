@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -418,4 +419,18 @@ fun ClickCounterPreview() {
         count = 5,
         onCounterClick = {}
     )
+}
+
+@Composable
+fun HomeScreenModifierOrder() {
+    Box(
+        modifier = Modifier
+            .size(200.dp)
+            .border(width = 2.dp,color = Color.Black)
+            .padding(32.dp)
+            .border(width = 2.dp,color = Color.Red)
+            .background(color = Color.Green)
+    ) {
+        Text(text = "Some text", fontSize = 30.sp)
+    }
 }
