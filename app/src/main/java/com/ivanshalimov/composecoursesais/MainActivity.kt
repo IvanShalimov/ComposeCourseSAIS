@@ -18,6 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +30,14 @@ class MainActivity : ComponentActivity() {
         //val text = mutableStateOf("some text")
         setContent {
             Column(modifier = Modifier.fillMaxSize()) {
-                var route by remember { mutableStateOf("first") }
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(16.dp)
-                ) {
-                    when (route) {
-                        "first" -> FirstScreen(
-                            onNavigateToSecond = { route = "second" },
-                            onNavigateToThird = { route = "third" }
-                        )
-                        "second" -> SecondScreen()
-                        "third" -> ThirdScreen()
-                    }
+                val navController = rememberNavController()
+                NavHost(navController = navController, startDestination = "first", modifier = Modifier.weight(1f)) {
+                    composable("first") { FirstScreen(
+                        onNavigateToSecond = {navController.navigate("second")},
+                        onNavigateToThird = { navController.navigate("third") }
+                    ) }
+                    composable("second") { SecondScreen() }
+                    composable("third") { ThirdScreen() }
                 }
 
                 Row(
@@ -50,9 +46,9 @@ class MainActivity : ComponentActivity() {
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(text = "First", modifier = Modifier.clickable { route = "first" })
-                    Text(text = "Second", modifier = Modifier.clickable { route = "second" })
-                    Text(text = "Third", modifier = Modifier.clickable { route = "third" })
+                    Text(text = "First", modifier = Modifier.clickable { navController.navigate("first") })
+                    Text(text = "Second", modifier = Modifier.clickable {  navController.navigate("second") })
+                    Text(text = "Third", modifier = Modifier.clickable {  navController.navigate("third") })
                 }
             }
         }
