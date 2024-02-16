@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         //val text = mutableStateOf("some text")
         setContent {
             Column(modifier = Modifier.fillMaxSize()) {
-                var route by remember { mutableStateOf("home") }
+                var route by remember { mutableStateOf("first") }
 
                 Box(
                     modifier = Modifier
@@ -35,9 +35,12 @@ class MainActivity : ComponentActivity() {
                         .padding(16.dp)
                 ) {
                     when (route) {
-                        "home" -> FirstScreen()
-                        "orders" -> SecondScreen()
-                        "users" -> ThirdScreen()
+                        "first" -> FirstScreen(
+                            onNavigateToSecond = { route = "second" },
+                            onNavigateToThird = { route = "third" }
+                        )
+                        "second" -> SecondScreen()
+                        "third" -> ThirdScreen()
                     }
                 }
 
@@ -47,9 +50,9 @@ class MainActivity : ComponentActivity() {
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Text(text = "First", modifier = Modifier.clickable { route = "home" })
-                    Text(text = "Second", modifier = Modifier.clickable { route = "orders" })
-                    Text(text = "Third", modifier = Modifier.clickable { route = "users" })
+                    Text(text = "First", modifier = Modifier.clickable { route = "first" })
+                    Text(text = "Second", modifier = Modifier.clickable { route = "second" })
+                    Text(text = "Third", modifier = Modifier.clickable { route = "third" })
                 }
             }
         }
