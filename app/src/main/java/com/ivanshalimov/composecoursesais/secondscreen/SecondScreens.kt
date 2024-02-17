@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
@@ -23,7 +25,7 @@ fun UserList(
 
 @Composable
 fun UserScreen(
-    usersSharedViewModel:UserViewModel = viewModel()
+    usersSharedViewModel:UserViewModel = hiltViewModel()
 ) {
     Text(text = "User")
 }
