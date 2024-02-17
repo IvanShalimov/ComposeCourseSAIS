@@ -1,6 +1,5 @@
-package com.ivanshalimov.composecoursesais
+package com.ivanshalimov.composecoursesais.firstscreen
 
-import HomeScreenUiState
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package com.ivanshalimov.composecoursesais
+package com.ivanshalimov.composecoursesais.firstscreen
 
 
 import android.util.Log
@@ -47,6 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.ivanshalimov.composecoursesais.EvenOdd
+import com.ivanshalimov.composecoursesais.R
 
 @Composable
 fun HomeScreen(userName: String) {
