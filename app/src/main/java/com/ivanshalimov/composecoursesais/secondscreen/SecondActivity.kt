@@ -4,46 +4,51 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //handmade navigation
+            //navigation compose
             Column(modifier = Modifier.fillMaxSize()) {
-                var route by remember { mutableStateOf("userList") }
+                val navController = rememberNavController()
 
-                Box(modifier = Modifier.weight(1f)) {
-                    when (route) {
-                        "userList" -> { UserList(onUser1Click = { route = "user/1" }) {
-                            route = "user/2"
+                NavHost(
+                    navController = navController,
+                    startDestination = "userList",
+                    modifier = Modifier.weight(1f)
+                ) {
+                    composable("userList") {
+                        UserList(
+                            onUserClick = { navController.navigate("user") },
+                        )
+                    }
+                    composable("user") { backStackEntry ->
+                        val userListEntry = remember(backStackEntry) {
+                            navController.getBackStackEntry("userList")
                         }
-                        }
-                        "user/1" -> { UserScreen(id = "1") }
-                        "user/2" -> { UserScreen(id = "2") }
-                        else -> {
-                            UserList(onUser1Click = { route = "user/1" }) {
-                                route = "user/2"
-                            }
-                        }
+                        UserScreen(
+                            usersSharedViewModel = viewModel(userListEntry)
+                        )
                     }
                 }
 
                 Text(
-                    text = "Users",
-                    modifier = Modifier.clickable { route = "userList" }
+                    text = "User List",
+                    modifier = Modifier.clickable { navController.navigate("userList") }
                 )
             }
-
         }
+
     }
 }
