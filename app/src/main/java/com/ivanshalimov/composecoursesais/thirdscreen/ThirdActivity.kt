@@ -28,7 +28,7 @@ class ThirdActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeCourseSAISTheme {
+            /*ComposeCourseSAISTheme {
                 Column {
                     var checkbox by remember { mutableStateOf(false) }
                     Checkbox(checked = checkbox, onCheckedChange = { checkbox = it })
@@ -42,7 +42,8 @@ class ThirdActivity : ComponentActivity() {
                         }
                     }
                 }
-            }
+            }*/
+            HomeScreenThird()
         }
     }
 
