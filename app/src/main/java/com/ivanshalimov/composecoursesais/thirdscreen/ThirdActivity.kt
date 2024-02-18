@@ -43,7 +43,7 @@ class ThirdActivity : ComponentActivity() {
                     }
                 }
             }*/
-            HomeScreenThird()
+            HomeScreenSlide()
         }
     }
 
