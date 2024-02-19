@@ -16,9 +16,9 @@
         android:theme="@style/Theme.ComposeCourseSAIS"
         tools:targetApi="31">
         <activity
-            android:name=".fotrhscreen.ForthActivity"
+            android:name=".MDActivity"
             android:exported="true"
-            android:label="@string/title_activity_forth"
+            android:label="@string/title_activity_mdactivity"
             android:theme="@style/Theme.ComposeCourseSAIS">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +27,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".fotrhscreen.ForthActivity"
+            android:exported="true"
+            android:label="@string/title_activity_forth"
+            android:theme="@style/Theme.ComposeCourseSAIS">
+        </activity>
+        <activity
             android:name=".thirdscreen.ThirdActivity"
             android:exported="true"
             android:label="@string/title_activity_third"
-            android:theme="@style/Theme.ComposeCourseSAIS">
-        </activity>
+            android:theme="@style/Theme.ComposeCourseSAIS" />
         <activity
             android:name=".secondscreen.SecondActivity"
             android:exported="true"
